@@ -23,3 +23,32 @@ Data Validator — это Java-библиотека для валидации р
 - **Testing**: JUnit
 - **Build Tool**: Gradle
 - **Code Quality**: SonarCloud, GitHub Actions
+
+## 🛠️ Использование
+
+```java
+Validator v = new Validator();
+
+// Валидация строк
+StringSchema schema = v.string().required();
+schema.isValid("what does the fox say"); // true
+schema.isValid(""); // false
+
+// Валидация чисел
+NumberSchema schema = v.number().required().positive();
+schema.isValid(-10); // false
+schema.isValid(10); // true
+
+// Валидация объектов
+MapSchema schema = v.map().sizeof(2);
+Map<String, Object> data = Map.of("key1", "value1", "key2", "value2");
+schema.isValid(data); // true
+
+🧪 Тестирование
+
+bash
+# Запуск тестов
+./gradlew test
+
+# Проверка покрытия кода
+./gradlew testCoverage
